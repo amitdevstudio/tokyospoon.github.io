@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth overflow-x-hidden">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Landing Page</title>
+  <link href="/src/output.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <style>
+    /* Initial hidden state for animation */
+    .anime-hero-buttons,
+    .anime-hero-text p,
+    .anime-hero-text h1,
+    .anime-hero-text p.mb-8,
+    .anime-hero-image img {
+      opacity: 0;
+    }
+
+    .anime-hero-buttons,
+    .anime-hero-text p,
+    .anime-hero-text h1,
+    .anime-hero-text p.mb-8 {
+      transform: translateY(20px);
+    }
+
+    .anime-hero-image img {
+      transform: translateX(50px);
+    }
+
+    /* Initial hidden state for animation */
+    .about-image,
+    .about-text {
+      opacity: 0;
+      transform-origin: center;
+    }
+
+    .about-image {
+      transform: scale(0.8);
+    }
+
+    .about-text {
+      transform: translateX(-50px);
+    }
+
+    .animate-heading,
+    .animate-subtext,
+    .animate-feature {
+      opacity: 0;
+      transform: translateY(50px);
+      /* or translateY(-50px) for heading */
+    }
+
+    .animate-heading {
+      transform: translateY(-50px);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-[#101014] overflow-x-hidden text-white">
+  <header class="border-b border-gray-300 tracking-wide relative z-50">
+    <section class="flex flex-wrap items-center gap-4 relative pt-2 px-4 sm:px-2 min-h-[70px] border-b border-gray-300">
+      <!-- Logo -->
+      <a href="javascript:void(0)" class="max-sm:hidden">
+        <img src="assets/images/tokyo-spoon-logo.png" alt="" class="w-52">
+      </a>
+      <a href="javascript:void(0)" class="hidden max-sm:block ">
+        <img src="assets/images/tokyo-spoon-logo.png" alt="" class="w-32">
+      </a>
+      <!-- Center Nav -->
+      <ul
+        class="flex space-x-8 lg:absolute lg:top-2/4 lg:left-2/4 lg:-translate-x-1/2 lg:-translate-y-1/2 max-lg:hidden">
+        <li><a href="#menu" class="hover:text-pink-500 text-white font-medium text-[15px]">Menu</a></li>
+        <li><a href="#" class="hover:text-pink-500 text-white font-medium text-[15px]">Stories</a></li>
+        <li><a href="#about" class="hover:text-pink-500 text-white font-medium text-[15px]">About</a></li>
+        <li><a href="#" class="hover:text-pink-500 text-white font-medium text-[15px]">Careers</a></li>
+      </ul>
+      <!-- Right Buttons -->
+      <div class="lg:absolute lg:right-10 flex items-center ml-auto">
+        <a href=""
+          class="px-4 py-2 text-[15px] rounded-sm font-medium text-white bg-pink-600 hover:bg-pink-700 active:bg-pink-600 duration-500 outline-0 cursor-pointer">
+          Order food
+        </a>
+        <div class="h-6 w-px bg-gray-100 mx-4"></div>
+        <!-- Profile Toggle -->
+        <div id="profile-dropdown-toggle" class="flex flex-col justify-center items-center cursor-pointer ml-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 512 512" class="fill-white">
+            <path
+              d="M337.711 241.3a16 16 0 0 0-11.461 3.988c-18.739 16.561-43.688 25.682-70.25 25.682s-51.511-9.121-70.25-25.683a16.007 16.007 0 0 0-11.461-3.988c-78.926 4.274-140.752 63.672-140.752 135.224v107.152C33.537 499.293 46.9 512 63.332 512h385.336c16.429 0 29.8-12.707 29.8-28.325V376.523c-.005-71.552-61.831-130.95-140.757-135.223zM446.463 480H65.537V376.523c0-52.739 45.359-96.888 104.351-102.8C193.75 292.63 224.055 302.97 256 302.97s62.25-10.34 86.112-29.245c58.992 5.91 104.351 50.059 104.351 102.8zM256 234.375a117.188 117.188 0 1 0-117.188-117.187A117.32 117.32 0 0 0 256 234.375zM256 32a85.188 85.188 0 1 1-85.188 85.188A85.284 85.284 0 0 1 256 32z" />
+          </svg>
+          <span class="text-xs font-semibold mt-1">Profile</span>
+        </div>
+        <!-- Dropdown Menu -->
+        <div id="profile-dropdown-menu"
+          class="hidden bg-gray-900 z-20 shadow-lg py-6 px-6 sm:min-w-[320px] max-sm:min-w-[250px] max-sm:-right-32 absolute right-0 top-14">
+          <h6 class="font-semibold text-sm">Welcome</h6>
+          <p class="text-sm mt-1">To access account and manage orders</p>
+          <button type='button'
+            class="border border-white hover:bg-pink-500 px-4 py-2 mt-4 text-sm text-pink-500 hover:text-white hover:border-pink-500 font-semibold cursor-pointer">
+            LOGIN / SIGNUP
+          </button>
+          <hr class="border-b-0 my-4 border-gray-300" />
+          <ul class="space-y-1.5">
+            <li><a href='javascript:void(0)' class="text-sm hover:text-pink-500">Order</a></li>
+            <li><a href='javascript:void(0)' class="text-sm hover:text-pink-500">Wishlist</a></li>
+            <li><a href='javascript:void(0)' class="text-sm hover:text-pink-500">Saved Credits</a></li>
+          </ul>
+          <hr class="border-b-0 my-4 border-gray-300" />
+          <ul class="space-y-1.5">
+            <li><a href='javascript:void(0)' class="text-sm hover:text-pink-500">Coupons</a></li>
+            <li><a href='javascript:void(0)' class="text-sm hover:text-pink-500">Offers</a></li>
+            <li><a href='javascript:void(0)' class="text-sm hover:text-pink-500">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- Mobile Menu -->
+    <div class="flex flex-wrap items-start gap-4 px-10 py-3 relative">
+      <div id="collapseMenu"
+        class="w-full max-lg:hidden lg:!block max-lg:fixed max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50">
+        <button id="toggleClose"
+          class="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white w-9 h-9 flex items-center justify-center border border-gray-200 cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 fill-black" viewBox="0 0 320.591 320.591">
+            <path
+              d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z" />
+            <path
+              d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z" />
+          </svg>
+        </button>
+        <ul
+          class="lg:flex lg:justify-center gap-x-8 max-lg:space-y-3 max-lg:fixed max-lg:bg-zinc-900 max-lg:w-[90vw] max-lg:max-w-[350px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-screen max-lg:overflow-y-auto z-50">
+          <li class="mb-6 hidden max-lg:block">
+            <a href="#"><img src="assets/images/tokyo-spoon-logo.png" alt="" class="w-32"></a>
+          </li>
+          <li class="max-lg:border-b border-pink-200 max-lg:py-3"><a href="#menu"
+              class="hover:text-pink-500 active:text-pink-500 font-medium text-[15px] block">Breakfast</a></li>
+          <li class="max-lg:border-b border-pink-200 max-lg:py-3"><a href="#"
+              class="hover:text-pink-500 active:text-pink-500 font-medium text-[15px] block">Salads</a></li>
+          <li class="max-lg:border-b border-pink-200 max-lg:py-3"><a href="#"
+              class="hover:text-pink-500 active:text-pink-500 font-medium text-[15px] block">Sides</a></li>
+          <li class="max-lg:border-b border-pink-200 max-lg:py-3"><a href="#"
+              class="hover:text-pink-500 active:text-pink-500 font-medium text-[15px] block">Treats</a></li>
+          <li class="max-lg:border-b border-pink-200 max-lg:py-3"><a href="#"
+              class="hover:text-pink-500 active:text-pink-500 font-medium text-[15px] block">Drinks</a></li>
+          <li class="max-lg:border-b border-pink-200 max-lg:py-3"><a href="#"
+              class="hover:text-pink-500 active:text-pink-500 font-medium text-[15px] block">Dressings</a></li>
+          <li class="max-lg:border-b border-pink-200 max-lg:py-3"><a href="#"
+              class="hover:text-pink-500 active:text-pink-500 font-medium text-[15px] block">Kid's Meals</a></li>
+          <li class="max-lg:border-b border-pink-200 max-lg:py-3"><a href="#"
+              class="hover:text-pink-500 active:text-pink-500 font-medium text-[15px] block">Catering</a></li>
+        </ul>
+      </div>
+      <div class="flex items-center gap-6 sm:gap-10 ml-auto lg:hidden text-white">
+        <!-- Social Icons -->
+        <div class="flex items-center gap-4 text-lg">
+          <a href="#" aria-label="Instagram" class="text-pink-500">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" aria-label="X (Twitter)" class="text-white">
+            <i class="fa-brands fa-x-twitter text-white"></i>
+          </a>
+          <a href="#" aria-label="Facebook" class="text-blue-600">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </div>
+        <!-- MENU Button -->
+        <button id="toggleOpen" class="cursor-pointer flex items-center gap-1">
+          MENU
+          <svg class="w-7 h-7 fill-white" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- Hero Section -->
+  <section id="hero-section"
+    class="flex flex-col-reverse lg:flex-row items-center justify-between gap-8 w-[90%] mx-auto py-16 min-h-[50vh]">
+    <!-- Text Content -->
+    <div class="lg:w-1/2 text-center lg:text-left anime-hero-text">
+      <p class="text-yellow-500 lg:text-5xl font-bold mb-4 text-lg">Welcome to Tokyo Spoon!</p>
+      <h1 class="text-4xl sm:text-5xl font-bold mb-6 leading-tight">The Taste You'll Remember</h1>
+      <p class="mb-8 text-lg max-w-xl mx-auto lg:mx-0">
+        Experience fine dining like never before. Fresh ingredients,
+        handcrafted recipes, and an ambiance you'll fall in love with.
+      </p>
+      <div class="anime-hero-buttons flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+        <a href="#reservation"
+          class="px-8 py-3 bg-rose-600 text-white font-semibold rounded-lg hover:bg-rose-700 transition duration-200">
+          Reserve a Table
+        </a>
+        <a href="#menu"
+          class="px-8 py-3 border border-emerald-500 text-emerald-500 font-semibold rounded-lg hover:bg-emerald-500 hover:text-white transition duration-200">
+          View Menu
+        </a>
+      </div>
+    </div>
+    <!-- Hero Image -->
+    <div class="hidden md:flex lg:w-1/2 anime-hero-image">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80"
+        alt="Delicious gourmet food" class="w-full h-full object-cover rounded-xl shadow-lg" />
+    </div>
+    <!-- Hero Image Mobile View -->
+    <div class="md:hidden flex lg:w-1/2 anime-hero-image-mobile">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80"
+        alt="Delicious gourmet food" class="w-full h-full object-cover rounded-xl shadow-lg" />
+    </div>
+  </section>
+  <!-- About Section -->
+  <section id="about" class="bg-zinc-900 scroll-mt-50 py-16">
+    <div
+      class="container mx-auto px-4 max-w-5xl text-white flex flex-col md:flex-row items-center md:items-start gap-12">
+      <!-- Image -->
+      <div class="md:w-1/2 about-image">
+        <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=600&q=80"
+          alt="About Us" class="rounded-lg shadow-lg w-full object-cover" loading="lazy" />
+      </div>
+      <!-- Text Content -->
+      <div class="md:w-1/2 space-y-6 about-text">
+        <h2 class="text-4xl font-bold">About Our Restaurant</h2>
+        <p class="text-gray-300 leading-relaxed text-lg">
+          At <span class="text-pink-500 font-semibold">Golden Spoon</span>, we believe in delivering
+          exceptional dining experiences with a passion for fresh ingredients and authentic flavors.
+          Our chefs craft each dish with care, blending traditional recipes with a modern twist.
+        </p>
+        <p class="text-gray-400 leading-relaxed text-base">
+          Whether you're joining us for a cozy dinner or a special celebration, our welcoming atmosphere
+          and attentive service ensure a memorable visit every time. Come taste the love we put in every plate!
+        </p>
+        <a href="#reservation"
+          class="inline-block bg-pink-600 hover:bg-pink-700 transition px-6 py-3 rounded font-semibold">
+          Book a Table
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- Why Choose Us Section -->
+  <section class="py-16 text-center text-white" id="why-choose-us">
+    <div class="container mx-auto px-4">
+      <!-- Heading -->
+      <h2 class="text-3xl sm:text-4xl font-bold mb-6 animate-heading">
+        Why Choose Us?
+      </h2>
+      <!-- Subtext -->
+      <p class="mb-12 max-w-xl mx-auto text-gray-300 animate-subtext">
+        Discover what sets us apart - from fresh ingredients to unforgettable service.
+      </p>
+      <!-- Feature Grid -->
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="feature animate-feature" data-delay="0">
+          <i class="fas fa-utensils text-4xl text-rose-500 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2">Fresh Ingredients</h3>
+          <p class="text-gray-400">Only the freshest produce, locally sourced and organically grown.</p>
+        </div>
+        <div class="feature animate-feature" data-delay="100">
+          <i class="fas fa-concierge-bell text-4xl text-rose-500 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2">Top-notch Service</h3>
+          <p class="text-gray-400">Experience hospitality that makes you feel at home.</p>
+        </div>
+        <div class="feature animate-feature" data-delay="200">
+          <i class="fas fa-star text-4xl text-rose-500 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2">5-Star Rated</h3>
+          <p class="text-gray-400">We're consistently rated among the top restaurants in the city.</p>
+        </div>
+        <div class="feature animate-feature" data-delay="300">
+          <i class="fas fa-mug-hot text-4xl text-rose-500 mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2">Signature Dishes</h3>
+          <p class="text-gray-400">Our chefs create flavors that stay with you forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- MENU Section -->
+  <section id="menu" class="bg-zinc-900 py-16 text-white overflow-hidden">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <h2 id="menu-title" class="text-4xl font-bold text-center mb-12">Our Japanese Menu</h2>
+      <div class="grid md:grid-cols-3 gap-12">
+        <!-- Appetizers -->
+        <div class="menu-category opacity-0 translate-y-10">
+          <h3 class="text-2xl font-semibold mb-6 border-b border-pink-600 pb-2">Appetizers</h3>
+          <ul class="space-y-6">
+            <li>
+              <div class="flex justify-between">
+                <h4 class="text-lg font-semibold">Edamame</h4>
+                <span class="text-pink-500 font-bold">¥400</span>
+              </div>
+              <p class="text-gray-400 text-sm mt-1">Steamed green soybeans with sea salt.</p>
+            </li>
+            <li>
+              <div class="flex justify-between">
+                <h4 class="text-lg font-semibold">Gyoza</h4>
+                <span class="text-pink-500 font-bold">¥600</span>
+              </div>
+              <p class="text-gray-400 text-sm mt-1">Pan-fried dumplings filled with pork and vegetables.</p>
+            </li>
+            <li class="extra-item hidden">
+              <div class="flex justify-between">
+                <h4 class="text-lg font-semibold">Takoyaki</h4>
+                <span class="text-pink-500 font-bold">¥700</span>
+              </div>
+              <p class="text-gray-400 text-sm mt-1">Octopus balls topped with mayo and bonito flakes.</p>
+            </li>
+          </ul>
+          <button class="show-more-btn mt-4 text-pink-500 hover:underline" onclick="toggleItems(this)">Show
+            More</button>
+        </div>
+        <!-- Main Courses -->
+        <div class="menu-category opacity-0 translate-y-10">
+          <h3 class="text-2xl font-semibold mb-6 border-b border-pink-600 pb-2">Main Courses</h3>
+          <ul class="space-y-6">
+            <li>
+              <div class="flex justify-between">
+                <h4 class="text-lg font-semibold">Ramen</h4>
+                <span class="text-pink-500 font-bold">¥900</span>
+              </div>
+              <p class="text-gray-400 text-sm mt-1">Wheat noodles in soy or miso-based broth with toppings.</p>
+            </li>
+            <li>
+              <div class="flex justify-between">
+                <h4 class="text-lg font-semibold">Sushi Platter</h4>
+                <span class="text-pink-500 font-bold">¥1500</span>
+              </div>
+              <p class="text-gray-400 text-sm mt-1">Assorted nigiri and rolls with wasabi and soy sauce.</p>
+            </li>
+            <li class="extra-item hidden">
+              <div class="flex justify-between">
+                <h4 class="text-lg font-semibold">Chicken Katsu</h4>
+                <span class="text-pink-500 font-bold">¥1100</span>
+              </div>
+              <p class="text-gray-400 text-sm mt-1">Breaded chicken cutlet served with tonkatsu sauce.</p>
+            </li>
+          </ul>
+          <button class="show-more-btn mt-4 text-pink-500 hover:underline" onclick="toggleItems(this)">Show
+            More</button>
+        </div>
+        <!-- Desserts -->
+        <div class="menu-category opacity-0 translate-y-10">
+          <h3 class="text-2xl font-semibold mb-6 border-b border-pink-600 pb-2">Desserts</h3>
+          <ul class="space-y-6">
+            <li>
+              <div class="flex justify-between">
+                <h4 class="text-lg font-semibold">Mochi Ice Cream</h4>
+                <span class="text-pink-500 font-bold">¥500</span>
+              </div>
+              <p class="text-gray-400 text-sm mt-1">Chewy mochi filled with ice cream (matcha, mango, etc.).</p>
+            </li>
+            <li>
+              <div class="flex justify-between">
+                <h4 class="text-lg font-semibold">Dorayaki</h4>
+                <span class="text-pink-500 font-bold">¥450</span>
+              </div>
+              <p class="text-gray-400 text-sm mt-1">Red bean pancake sandwich made famous by Doraemon.</p>
+            </li>
+            <li class="extra-item hidden">
+              <div class="flex justify-between">
+                <h4 class="text-lg font-semibold">Anmitsu</h4>
+                <span class="text-pink-500 font-bold">¥550</span>
+              </div>
+              <p class="text-gray-400 text-sm mt-1">Traditional jelly dessert with fruit, red bean, and syrup.</p>
+            </li>
+          </ul>
+          <button class="show-more-btn mt-4 text-pink-500 hover:underline" onclick="toggleItems(this)">Show
+            More</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Reservation Section -->
+  <section id="reservation" class="bg-[#101014] py-10" id="reservation" data-aos="fade-up">
+    <div class="container mx-auto px-4 max-w-xl text-white">
+      <h2 class="text-4xl font-bold text-center mb-12" data-aos="zoom-in" data-aos-delay="100">
+        Make a Reservation
+      </h2>
+      <form class="space-y-6" action="#" method="POST">
+        <div>
+          <label for="fullName" class="block mb-2 text-sm font-medium">Full Name</label>
+          <input type="text" id="fullName" name="fullName" required
+            class="w-full p-3 rounded bg-zinc-800 border border-gray-600 focus:outline-none focus:border-pink-500"
+            placeholder="Your full name" />
+        </div>
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium">Email Address</label>
+          <input type="email" id="email" name="email" required
+            class="w-full p-3 rounded bg-zinc-800 border border-gray-600 focus:outline-none focus:border-pink-500"
+            placeholder="you@example.com" />
+        </div>
+        <div>
+          <label for="phone" class="block mb-2 text-sm font-medium">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required
+            class="w-full p-3 rounded bg-zinc-800 border border-gray-600 focus:outline-none focus:border-pink-500"
+            placeholder="+1 234 567 8901" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label for="date" class="block mb-2 text-sm font-medium">Date</label>
+            <input type="date" id="date" name="date" required
+              class="w-full p-3 rounded bg-zinc-800 border border-gray-600 focus:outline-none focus:border-pink-500"
+              min="{{ today }}" /><!-- You can replace with dynamic date if backend -->
+          </div>
+          <div>
+            <label for="time" class="block mb-2 text-sm font-medium">Time</label>
+            <input type="time" id="time" name="time" required
+              class="w-full p-3 rounded bg-zinc-800 border border-gray-600 focus:outline-none focus:border-pink-500" />
+          </div>
+        </div>
+        <div>
+          <label for="guests" class="block mb-2 text-sm font-medium">Number of Guests</label>
+          <select id="guests" name="guests" required
+            class="w-full p-3 rounded bg-zinc-800 border border-gray-600 focus:outline-none focus:border-pink-500">
+            <option value="" disabled selected>Select guests</option>
+            <option value="1">1 guest</option>
+            <option value="2">2 guests</option>
+            <option value="3">3 guests</option>
+            <option value="4">4 guests</option>
+            <option value="5">5 guests</option>
+            <option value="6">6 guests</option>
+            <option value="7">7 guests</option>
+            <option value="8">8+ guests</option>
+          </select>
+        </div>
+        <button type="submit"
+          class="w-full cursor-pointer bg-pink-600 py-3 rounded font-semibold hover:bg-pink-700 transition">
+          Reserve Now
+        </button>
+      </form>
+    </div>
+  </section>
+  <!-- Photo Gallery Section -->
+  <section class="px-20 mx-auto py-16" data-aos="fade-up">
+    <h2 class="text-3xl font-bold mb-10 text-center text-yellow-400" data-aos="fade-down">Photo Gallery</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      <img src="https://t3.ftcdn.net/jpg/03/24/73/92/360_F_324739203_keeq8udvv0P2h1MLYJ0GLSlTBagoXS48.jpg"
+        alt="Gallery Image 1"
+        class="rounded-lg object-cover w-full h-48 shadow-lg hover:scale-105 transition-transform duration-300"
+        data-aos="zoom-in" />
+      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=400&q=80"
+        alt="Gallery Image 2"
+        class="rounded-lg object-cover w-full h-48 shadow-lg hover:scale-105 transition-transform duration-300"
+        data-aos="zoom-in" data-aos-delay="100" />
+      <img src="https://images.unsplash.com/photo-1478145046317-39f10e56b5e9?auto=format&fit=crop&w=400&q=80"
+        alt="Gallery Image 3"
+        class="rounded-lg object-cover w-full h-48 shadow-lg hover:scale-105 transition-transform duration-300"
+        data-aos="zoom-in" data-aos-delay="200" />
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80"
+        alt="Gallery Image 4"
+        class="rounded-lg object-cover w-full h-48 shadow-lg hover:scale-105 transition-transform duration-300"
+        data-aos="zoom-in" data-aos-delay="300" />
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"
+        alt="Gallery Image 5"
+        class="rounded-lg object-cover w-full h-48 shadow-lg hover:scale-105 transition-transform duration-300"
+        data-aos="zoom-in" data-aos-delay="400" />
+      <img
+        src="https://img.freepik.com/premium-photo/group-friends-eating-together_53876-42081.jpg?semt=ais_hybrid&w=740"
+        alt="Gallery Image 6"
+        class="rounded-lg object-cover w-full h-48 shadow-lg hover:scale-105 transition-transform duration-300"
+        data-aos="zoom-in" data-aos-delay="500" />
+      <img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=400&q=80"
+        alt="Gallery Image 7"
+        class="rounded-lg object-cover w-full h-48 shadow-lg hover:scale-105 transition-transform duration-300"
+        data-aos="zoom-in" data-aos-delay="600" />
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"
+        alt="Gallery Image 8"
+        class="rounded-lg object-cover w-full h-48 shadow-lg hover:scale-105 transition-transform duration-300"
+        data-aos="zoom-in" data-aos-delay="700" />
+    </div>
+  </section>
+  <!-- Testimonial Section -->
+  <section class="bg-[#101014] my-12 max-w-6xl mx-auto px-4" data-aos="fade-up">
+    <header class="max-w-2xl mx-auto text-center mb-12" data-aos="zoom-in" data-aos-delay="100">
+      <h2 class="text-3xl font-bold">What Our Happy Clients Say</h2>
+      <p class="text-sm mt-4 leading-relaxed">
+        Veniam proident aute magna anim excepteur et ex consectetur velit ullamco veniam minim aute sit.
+        Elit occaecat officia et laboris Lorem minim. Officia do aliqua adipisicing ullamco in.
+      </p>
+    </header>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto text-center">
+      <!-- Testimonial 1 -->
+      <article class="flex flex-col items-center bg-zinc-800 p-6 rounded-lg shadow-lg" data-aos="fade-up"
+        data-aos-delay="200">
+        <img src="https://readymadeui.com/team-2.webp" alt="John Doe"
+          class="w-24 h-24 rounded-full border-2 border-purple-600" />
+        <h3 class="mt-6 text-sm font-semibold text-white">John Doe</h3>
+        <div class="flex justify-center space-x-1 mt-3">
+          <!-- 4 filled stars + 1 empty -->
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span><i class="fa-solid fa-star"></i></span>
+        </div>
+        <p class="mt-6 text-sm leading-relaxed text-white font-normal">
+          The service was amazing. I never had to wait that long for my food. The staff was friendly and attentive, and
+          the delivery was impressively prompt.
+        </p>
+      </article>
+      <!-- Testimonial 2 -->
+      <article class="flex flex-col items-center bg-zinc-800 p-6 rounded-lg shadow-lg" data-aos="fade-up"
+        data-aos-delay="300">
+        <img src="https://readymadeui.com/team-3.webp" alt="Mark Adair"
+          class="w-24 h-24 rounded-full border-2 border-purple-600" />
+        <h3 class="mt-6 text-sm font-semibold text-white">Mark Adair</h3>
+        <div class="flex justify-center space-x-1 mt-3">
+          <!-- 5 filled stars -->
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+        </div>
+        <p class="mt-6 text-sm leading-relaxed text-white font-normal">
+          The service was amazing. I never had to wait that long for my food. The staff was friendly and attentive, and
+          the delivery was impressively prompt.
+        </p>
+      </article>
+      <!-- Testimonial 3 -->
+      <article class="flex flex-col items-center bg-zinc-800 p-6 rounded-lg shadow-lg" data-aos="fade-up"
+        data-aos-delay="400">
+        <img src="https://readymadeui.com/team-4.webp" alt="Simon Konecki"
+          class="w-24 h-24 rounded-full border-2 border-purple-600" />
+        <h3 class="mt-6 text-sm font-semibold text-white">Simon Konecki</h3>
+        <div class="flex justify-center space-x-1 mt-3">
+          <!-- 4 filled stars + 1 empty -->
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+          <span class="text-yellow-400"><i class="fa-solid fa-star"></i></span>
+        </div>
+        <p class="mt-6 text-sm leading-relaxed text-white font-normal">
+          The service was amazing. I never had to wait that long for my food. The staff was friendly and attentive, and
+          the delivery was impressively prompt.
+        </p>
+      </article>
+    </div>
+  </section>
+  <!-- FAQ Section -->
+  <section class="bg-[#101014] text-white py-12" data-aos="fade-up">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="mb-6 border-b border-gray-700 pb-4" data-aos="zoom-in" data-aos-delay="100">
+        <h2 class="text-3xl font-bold">Frequently Asked Questions</h2>
+      </div>
+      <div class="divide-y divide-gray-700">
+        <!-- FAQ 1 -->
+        <div class="accordion" role="accordion" data-aos="fade-up" data-aos-delay="200">
+          <button type="button"
+            class="toggle-button cursor-pointer w-full text-left font-semibold py-6 text-white hover:text-yellow-400 flex items-center">
+            <span class="mr-4">Do you offer home delivery or takeout?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42" class="w-3 fill-current ml-auto shrink-0">
+              <path class="plus hidden"
+                d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" />
+              <path
+                d="M37.059 16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5h32.118C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" />
+            </svg>
+          </button>
+          <div class="content pb-6 max-h-[1000px] overflow-hidden transition-all duration-300">
+            <p class="text-sm text-gray-300 leading-relaxed">
+              Yes, we offer both delivery and takeout. You can order through our website or call us directly.
+            </p>
+          </div>
+        </div>
+        <!-- FAQ 2 -->
+        <div class="accordion" role="accordion" data-aos="fade-up" data-aos-delay="300">
+          <button type="button"
+            class="toggle-button cursor-pointer w-full text-left font-semibold py-6 text-white hover:text-yellow-400 flex items-center">
+            <span class="mr-4">What are your opening hours?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42" class="w-3 fill-current ml-auto shrink-0">
+              <path class="plus"
+                d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" />
+              <path
+                d="M37.059 16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5h32.118C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" />
+            </svg>
+          </button>
+          <div class="content invisible max-h-0 overflow-hidden transition-all duration-300">
+            <p class="text-sm text-gray-300 leading-relaxed">
+              We are open daily from 11:00 AM to 11:00 PM. Weekend brunch is served from 9:00 AM to 2:00 PM.
+            </p>
+          </div>
+        </div>
+        <!-- FAQ 3 -->
+        <div class="accordion" role="accordion" data-aos="fade-up" data-aos-delay="400">
+          <button type="button"
+            class="toggle-button cursor-pointer w-full text-left font-semibold py-6 text-white hover:text-yellow-400 flex items-center">
+            <span class="mr-4">Do you have vegetarian or vegan options?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42" class="w-3 fill-current ml-auto shrink-0">
+              <path class="plus"
+                d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" />
+              <path
+                d="M37.059 16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5h32.118C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" />
+            </svg>
+          </button>
+          <div class="content invisible max-h-0 overflow-hidden transition-all duration-300">
+            <p class="text-sm text-gray-300 leading-relaxed">
+              Absolutely! We offer a variety of vegetarian and vegan dishes clearly marked on our menu.
+            </p>
+          </div>
+        </div>
+        <!-- FAQ 4 -->
+        <div class="accordion" role="accordion" data-aos="fade-up" data-aos-delay="500">
+          <button type="button"
+            class="toggle-button cursor-pointer w-full text-left font-semibold py-6 text-white hover:text-yellow-400 flex items-center">
+            <span class="mr-4">Can I make a reservation?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42" class="w-3 fill-current ml-auto shrink-0">
+              <path class="plus"
+                d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" />
+              <path
+                d="M37.059 16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5h32.118C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" />
+            </svg>
+          </button>
+          <div class="content invisible max-h-0 overflow-hidden transition-all duration-300">
+            <p class="text-sm text-gray-300 leading-relaxed">
+              Yes, you can reserve a table online or by calling us. We also welcome walk-ins.
+            </p>
+          </div>
+        </div>
+        <!-- FAQ 5 -->
+        <div class="accordion" role="accordion" data-aos="fade-up" data-aos-delay="600">
+          <button type="button"
+            class="toggle-button cursor-pointer w-full text-left font-semibold py-6 text-white hover:text-yellow-400 flex items-center">
+            <span class="mr-4">Is there parking available?</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42" class="w-3 fill-current ml-auto shrink-0">
+              <path class="plus"
+                d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" />
+              <path
+                d="M37.059 16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5h32.118C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z" />
+            </svg>
+          </button>
+          <div class="content invisible max-h-0 overflow-hidden transition-all duration-300">
+            <p class="text-sm text-gray-300 leading-relaxed">
+              Yes, we have free parking available for all our guests right outside the restaurant.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- CTA Section -->
+  <section class="py-16" data-aos="fade-up">
+    <div class="container mx-auto px-4 text-white">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8" data-aos="zoom-in" data-aos-delay="100">Get in Touch
+      </h2>
+      <form class="max-w-2xl mx-auto space-y-6" data-aos="fade-up" data-aos-delay="200">
+        <div>
+          <label for="name" class="block mb-2 text-sm font-medium">Name</label>
+          <input type="text" id="name"
+            class="w-full p-3 rounded bg-zinc-800 border border-gray-600 focus:outline-none focus:border-pink-500">
+        </div>
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium">Email</label>
+          <input type="email" id="email"
+            class="w-full p-3 rounded bg-zinc-800 border border-gray-600 focus:outline-none focus:border-pink-500">
+        </div>
+        <div>
+          <label for="message" class="block mb-2 text-sm font-medium">Message</label>
+          <textarea id="message" rows="4"
+            class="w-full p-3 rounded bg-zinc-800 border border-gray-600 focus:outline-none focus:border-pink-500"></textarea>
+        </div>
+        <button type="submit" class="bg-pink-600 px-6 py-3 font-semibold rounded hover:bg-pink-700">Send
+          Message</button>
+      </form>
+    </div>
+  </section>
+  <footer class="bg-[#101014] border-t-2 px-6 pt-16 pb-6" data-aos="fade-up" data-aos-delay="100">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="grid lg:grid-cols-4 sm:grid-cols-2 gap-10">
+        <!-- Restaurant Info -->
+        <div class="space-y-4" data-aos="fade-right" data-aos-delay="200">
+          <h3 class="text-2xl font-bold text-yellow-500">Tokyo Spoon</h3>
+          <p class="text-sm text-gray-400">123 Food Street, Culinary City, 45678</p>
+          <p class="text-sm text-gray-400">Email: contact@goldenspoon.com</p>
+          <p class="text-sm text-gray-400">Phone: +1 234-567-8901</p>
+        </div>
+        <!-- Quick Links -->
+        <div data-aos="fade-right" data-aos-delay="300">
+          <h3 class="text-base font-semibold text-white mb-4">Quick Links</h3>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">Menu</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">Reservations</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">Gallery</a></li>
+          </ul>
+        </div>
+        <!-- Customer Support -->
+        <div data-aos="fade-left" data-aos-delay="400">
+          <h3 class="text-base font-semibold text-white mb-4">Customer Support</h3>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">FAQs</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">Contact</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">Feedback</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">Careers</a></li>
+          </ul>
+        </div>
+        <!-- Social Media -->
+        <div data-aos="fade-left" data-aos-delay="500">
+          <h3 class="text-base font-semibold text-white mb-4">Follow Us</h3>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">Instagram</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">Facebook</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">Twitter</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-pink-500">YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="mt-12 mb-6 border-gray-300" />
+      <p class="text-center text-sm text-gray-400">
+        &copy; 2025 Tokyo Spoon. All rights reserved.
+      </p>
+    </div>
+  </footer>
+  <script src="assets/index.js"></script>
+  <script src="assets/animation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script>
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+
+    // Disable developer tools and view source
+    document.addEventListener('keydown', function (e) {
+      const key = e.key.toLowerCase();
+
+      // F12
+      if (key === 'f12') {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl/Cmd + Shift + I/J/C
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i', 'j', 'c'].includes(key)) {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl/Cmd + U or Ctrl/Cmd + S
+      if ((e.ctrlKey || e.metaKey) && ['u', 's'].includes(key)) {
+        e.preventDefault();
+        return false;
+      }
+    });
+  </script>
+</body>
+
+</html>
